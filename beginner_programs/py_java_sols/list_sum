@@ -1,0 +1,1 @@
+public class list_sum{static int[] arr;static int n;static int ans;public static void main(String[]args){arr=new int[] {12,3,4,15};n=arr.length;ans=_sum(arr);System.out.printf("Sum of the array is  %d\n",ans);}static int _sum(int[] arr){int sum=0;for(int i:arr){sum=sum+i;}return (sum);}}

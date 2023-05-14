@@ -1,0 +1,1 @@
+import java.util.Arrays;public class arr_len{static int[] test_list;static int counter;public static void main(String[]args){test_list=new int[] {1,4,5,7,8};System.out.println("The list is : "+Arrays.toString(test_list));counter=0;for(int i:test_list){counter=counter+1;}System.out.println("Length of list using naive method is : "+String.valueOf(counter));}}

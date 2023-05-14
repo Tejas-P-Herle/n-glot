@@ -1,0 +1,1 @@
+public class simple_interest{public static void main(String[]args){simple_interest(8,6,8);}static double simple_interest(int p,int t,int r){System.out.printf("The principal is %d\n",p);System.out.printf("The time period is %d\n",t);System.out.printf("The rate of interest is %d\n",r);double si=(double)(p*t*r)/100;System.out.printf("The Simple Interest is %f\n",si);return si;}}

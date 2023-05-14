@@ -1,0 +1,1 @@
+public class find_max{static int a;static int b;public static void main(String[]args){a=2;b=4;System.out.println(maximum(a,b));}static int maximum(int a,int b){if(a>b){return a;}else{return b;}}}

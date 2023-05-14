@@ -1,0 +1,1 @@
+public class t1{public static void main(String[]args){System.out.printf("Hello World\n\n");System.out.println("HI");return;}}

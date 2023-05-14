@@ -1,0 +1,1 @@
+!function(){"use strict";initalizeFirebase(),document.getElementById("resend_verification_email").onclick=()=>function(e){e.sendEmailVerification().then(function(){console.log("Email Sent")})}(firebase.auth().currentUser)}();

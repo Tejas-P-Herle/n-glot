@@ -1,0 +1,30 @@
+Global Classifications:
+  ----Object----
+  1. Variable
+    a. Decl.
+    b. Set
+    c. Get
+  2. Function
+    a. Decl
+    b. Def
+    c. Call
+  --------------
+  3. Misc.
+
+Object Properties:
+  ref_loc     -> Reference Location,
+	         Independent of Usage Location or Call Path,
+                 is Object Dependent, Contains full path to Object
+                 Eg: TestCls.method.lcl_var, TestCls.attr, etc.
+
+  abs_name    -> Absolute Name, 
+                 Is the identifier name of the Object
+                 Eg: lcl_var, attr
+
+  linked_objs -> Linked Objects,
+                 List of Objects having same ref_loc
+
+  
+  
+MAJOR ASSUMPTIONS:
+  1. All Statements end with Statement Return Character Sequence

@@ -1,0 +1,1 @@
+public class bubble_sort{static int[] A;static int min_idx;public static void main(String[]args){A=new int[] {64,25,12,22,11};for(int i=0;i<A.length;i++){min_idx=i;for(int j=i+1;j<A.length;j++){if(A[min_idx]>A[j]){min_idx=j;}}int temp=A[i];A[i]=A[min_idx];A[min_idx]=temp;}System.out.println("Sorted array");for(int i=0;i<A.length;i++){System.out.printf("%d\n",A[i]);}}}

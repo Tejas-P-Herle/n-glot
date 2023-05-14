@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "server",
+			"path": "db_handler/",
+			"problemMatcher": [],
+			"label": "npm: server - db_handler",
+			"detail": "python3 -m http.server --directory public 8080"
+		}
+	]
+}

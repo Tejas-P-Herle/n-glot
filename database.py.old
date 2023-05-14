@@ -1,0 +1,250 @@
+"""Read and write to database"""
+
+
+import json
+import os
+from selenium import webdriver
+from errors import MissingFunctionError
+
+import selenium.webdriver.support.ui as ui
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+
+class DataBase:
+    from_meta = None
+    to_meta = None
+    from_reserved_kw = None
+    conn = None
+    from_lang_name: str = ""
+    to_lang_name: str = ""
+
+    def __init__(self):
+        """Initiation method of DataBase Class"""
+        
+        # Initiate class attributes
+        self.cnv_dbs = {}
+        self.from_ = {}
+        self.to = {}
+
+        options = webdriver.ChromeOptions()
+        options.add_argument("--incognito")
+
+        self.driver = webdriver.Chrome(options=options)
+        # self.driver.get('http://0.0.0.0:8080/signin.html')
+        # input("Waiting for signin...")
+        self.driver.get('http://0.0.0.0:8080')
+        self.ready_state = "div.className='ready';"
+
+        self.driver.execute_script(
+            "div=document.createElement('div');div.id='pyWait';"
+                + "document.body.appendChild(div);db_handler=new DBHandler()")
+        
+        self.run_sync_js_cmds([
+            "console.log(db_handler);",
+            "db_handler.signIn('balaramtejas@gmail.com', 'Password').then("
+                + "() => { " + self.ready_state + " });",
+        ])
+
+        self.languages = self.get_languages()
+
+    def wait_for_selenium(self):
+        """Waits for selenium to finish flagged task"""
+        
+        ui.WebDriverWait(self.driver, timeout=20).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "#pyWait[class='ready']")))
+        self.driver.execute_script("div.className='wait';")
+
+    def run_sync_js_cmds(self, js_cmds):
+        """Run JS Commands Synchronously"""
+
+        self.driver.execute_script("div.className='wait';")
+        for cmd in js_cmds:
+            self.driver.execute_script(cmd)
+        self.wait_for_selenium()
+    
+    def __del__(self):
+        """Delete DataBase Instace"""
+
+        self.driver.close()
+
+    def initiate_connection(self):
+        """Initiate new connection with database"""
+
+        cert_path = "n-glot-firebase-adminsdk-2yyb4-772ddbf178.json"
+        cred = credentials.Certificate(cert_path)
+        firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        self.conn = None
+
+    def get_languages(self):
+        """Get list of available languages"""
+        
+        # Get available files from conversion database
+        self.run_sync_js_cmds([
+            "db_handler.get_langs_meta().then((data)=>{"
+                + "langs_meta=data;" + self.ready_state + "},"
+                + "(error)=>{console.error(error);" + self.ready_state + "});",
+        ])
+        languages = self.driver.execute_script("return langs_meta;")
+        languages = {}
+        for filename in os.listdir("./cnv_dbs"):
+
+            # Check if result is a file or directory
+            filepath = "./cnv_dbs/" + filename
+            if os.path.isfile(filepath):
+                
+                # Extract language name from filename
+                filename, ext = filename.rsplit(".", 1)
+                if ext == "db":
+                    language, ext = filename.split("_")
+                    languages[language] = {"extension": ext}
+                    self.cnv_dbs[language] = filepath
+
+        # Return dictionary of languages
+        return languages
+
+    @staticmethod
+    def get_conv(filepath, func="main", d_type="py"):
+        """Get Conversion"""
+
+        if d_type != "py":
+            with open(filepath + "." + d_type) as file:
+                return file.read()
+
+        path_split = filepath.split("/")
+        lib = __import__(".".join(path_split))
+        path_split.pop(0)
+        for sub_list in path_split:
+            lib = getattr(lib, sub_list)
+
+        if not func:
+            return lib
+
+        try:
+            return getattr(lib, func)
+        except AttributeError:
+            raise MissingFunctionError("'{}' is Missing '{}' Function".format(
+                lib.__name__, func))
+
+    def update_json(self, filepath, val_path, value, append=False):
+        """Update json file at given path with given value"""
+
+        val = json.loads(self.get_conv(filepath, d_type="json"))
+        ptr = val
+        for path in val_path[:-1]:
+            ptr = ptr[path]
+        if append and isinstance(ptr, list):
+            ptr[val_path[-1]].append(value)
+        else:
+            ptr[val_path[-1]] = value
+
+        self.save_data(filepath, json.dumps(val, indent=2))
+
+    @staticmethod
+    def save_data(filepath, data, d_type="json"):
+        """Save data in given filepath"""
+
+        with open(filepath + "." + d_type, "w") as file:
+            file.write(data)
+
+    @staticmethod
+    def get_files_in_dir(dir_):
+        """Get all files in directory"""
+
+        for file in next(os.walk(dir_))[2]:
+            yield os.path.splitext(file)[0]
+
+    @classmethod
+    def module_exists(cls, module_path):
+        """Check if module exists"""
+
+        try:
+            cls.get_conv(module_path, "")
+            return True
+        except (AttributeError, ModuleNotFoundError):
+            return False
+
+    def get_conv_if_exists(self, conv_path, func=""):
+        """Returns conversion only if it exists"""
+
+        try:
+            return self.get_conv(conv_path, func)
+        except (AttributeError, ModuleNotFoundError):
+            return
+
+    def get_from_funcs_path(self):
+        """Returns location of from-language functions"""
+
+        return "cnv_dbs/{}funcs".format(self.from_meta["extension"])
+
+    def get_to_funcs_path(self):
+        """Returns location of to-language functions"""
+
+        return "cnv_dbs/{}funcs".format(self.to_meta["extension"])
+
+    def get_lib_obj(self, lib_path):
+        """Get Conversion functions of lib_path"""
+
+        lib_base_path = "{}/core_to/{}/lib_convs".format(
+            self.get_to_funcs_path(), self.from_lang_name)
+
+        if not lib_path:
+            return lib_base_path
+
+        for part in lib_path:
+            lib_base_path += f"/{part}_dir"
+        return lib_base_path[:-4]
+
+    def get_opr_conv(self, opr, lhs_type):
+        """Get Operator conversion for given parameters"""
+
+        try:
+            base = f"{self.get_to_funcs_path()}/core_to/{self.from_lang_name}"
+            if lhs_type is not None:
+                path = f"{base}/operator_overloads/{lhs_type}/{opr}"
+                return path, self.get_conv(path, "")
+            else:
+                path = f"{base}/operator_overloads/{opr}"
+                return path, self.get_conv(path, "")
+        except (ModuleNotFoundError, AttributeError):
+            return
+
+    def setup(self, lang_from_name, lang_to_name):
+        """Setup Database"""
+
+        self.from_lang_name = lang_from_name
+        self.to_lang_name = lang_to_name
+
+        # Read and save data
+        self.from_ = self.read(lang_from_name)
+        self.to = self.read(lang_to_name)
+
+        # Save reserved keywords data
+        self.from_reserved_kw = self.from_["meta"]["reserved_kw"]
+        self.from_meta = self.from_["meta"]
+        self.to_meta = self.to["meta"]
+
+    def write_to_cnv_db(self, data):
+        """Write to conversion Databases"""
+
+        # TODO implement json write method
+
+        # REMOVE THIS LINE
+        print("DATA", data)
+
+        err = "Write to conversion data base is not implemented"
+        raise NotImplementedError(err)
+
+    def read(self, lang):
+        """Read from database"""
+
+        # Read from database
+        with open(self.cnv_dbs[lang]) as file:
+
+            # Load json from file
+            data = json.load(file)
+
+            # Return read data
+            return data

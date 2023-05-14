@@ -1,0 +1,1 @@
+find . \( -name "*.py" -o -name "*.js" \) -not -path "*/venv/*" -not -path "*/lib*/*" -not -path "*/test*/*" -not -path "*/test*" -not -path "*/beginner_programs/*" -not -path "*/node_modules/*" -print0 | xargs -0 wc -l

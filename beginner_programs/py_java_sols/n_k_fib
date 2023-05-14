@@ -1,0 +1,1 @@
+public class n_k_fib{static int n;static int k;public static void main(String[]args){n=5;k=4;System.out.printf("Position of n\'th multiple of k in Fibonacci Seires is %d\n",findPosition(k,n));}static Integer findPosition(int k,int n){int f1=0;int f2=1;int i=2;while(i!=0){int f3=f1+f2;f1=f2;f2=f3;if(f2%k==0){return n*i;}i=i+1;}return null;}}

@@ -1,0 +1,41 @@
+07:20 - PLC - D - VAR[NAME] file_path test_examples/python_1.py
+07:20 - error - E - File - test_examples/python_1.py Does not exist
+07:20 - PLC - D - VAR[NAME] file_path JaVa
+07:20 - error - E - File - JaVa Does not exist
+07:20 - PLC - D - VAR[NAME] file_path java.jaVa
+07:20 - error - E - File - java.jaVa Does not exist
+07:20 - PLC - D - VAR[NAME] file_path 8
+07:20 - error - E - File - 8 Does not exist
+07:20 - PLC - D - VAR[NAME] file_path java
+07:20 - error - E - File - java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path test_examples/python_1_outfile.java
+07:20 - error - E - File - test_examples/python_1_outfile.java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path Y
+07:20 - error - E - File - Y Does not exist
+07:20 - PLC - D - VAR[NAME] file_path 8
+07:20 - error - E - File - 8 Does not exist
+07:20 - PLC - D - VAR[NAME] file_path java
+07:20 - error - E - File - java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path test_examples/python_2_outfile.java
+07:20 - error - E - File - test_examples/python_2_outfile.java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path Y
+07:20 - error - E - File - Y Does not exist
+07:20 - PLC - D - VAR[NAME] file_path 8
+07:20 - error - E - File - 8 Does not exist
+07:20 - PLC - D - VAR[NAME] file_path java
+07:20 - error - E - File - java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path test_examples/python_3_outfile.java
+07:20 - error - E - File - test_examples/python_3_outfile.java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path Y
+07:20 - error - E - File - Y Does not exist
+07:20 - PLC - D - VAR[NAME] file_path 8
+07:20 - error - E - File - 8 Does not exist
+07:20 - PLC - D - VAR[NAME] file_path java
+07:20 - error - E - File - java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path test_examples/python_4_outfile.java
+07:20 - error - E - File - test_examples/python_4_outfile.java Does not exist
+07:20 - PLC - D - VAR[NAME] file_path Y
+07:20 - error - E - File - Y Does not exist
+07:20 - langauges_java - D - ERROR_2 public final MasterClass [] []
+07:20 - langauges_java - D - ERROR_2 private static ChildClass ['MasterClass'] ['ParentIntr']
+07:20 - langauges_java - D - ERROR_2  SubClass ['MasterClass'] ['ParentIntr', 'ChildIntr']

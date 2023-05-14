@@ -1,0 +1,1 @@
+public class t3{public static void main(String[]args){System.out.println("HI");}static void pyMain(){if(true){System.out.println("Double Indent");}}static void new_func(){System.out.println("NEW");}}

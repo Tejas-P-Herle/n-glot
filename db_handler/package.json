@@ -1,0 +1,22 @@
+{
+  "name": "db_handler",
+  "version": "1.0.0",
+  "description": "Handles FireStore Communications",
+  "main": "db_handler.js",
+  "scripts": {
+    "info": "echo 'DB Bridge between python and Firebase'",
+    "lint": "echo '=> linting' && jshint src/*.js",
+    "test": "echo '=> testing' && mocha test/",
+    "pretest": "npm run lint -s",
+    "server": "python3 -m http.server --directory public 8080",
+    "build": "for file in $( ls src/*.js ); do base_file=$( basename $file ); filename=${base_file%.*}; uglifyjs --toplevel --mangle --output public/dist/$filename.js --compress -- src/$filename.js; done"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^9.1.1"
+  },
+  "dependencies": {
+    "firebase": "^9.0.1"
+  }
+}

@@ -1,0 +1,1 @@
+public class compound_interest{public static void main(String[]args){compound_interest(10000,10.25,5);}static void compound_interest(int principle,double rate,int time){double Amount=principle*(Math.pow((1+rate/100),time));double CI=Amount-principle;System.out.printf("Compound interest is %f\n",CI);}}

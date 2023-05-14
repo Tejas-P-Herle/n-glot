@@ -1,0 +1,1 @@
+public class list_max{static int[] arr;static int n;static int Ans;public static void main(String[]args){arr=new int[] {10,324,45,90,9808};n=arr.length;Ans=largest(arr,n);System.out.printf("Largest in given array is %d\n",Ans);}static int largest(int[] arr,int n){int max=arr[0];for(int i=1;i<n;i++){if(arr[i]>max){max=arr[i];}}return max;}}

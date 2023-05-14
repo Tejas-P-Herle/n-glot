@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>N-Glot SignUp</title>
+    <!--
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="db_handler.js"></script>
+    -->
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+  </head>
+  <body>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="dist/signin.js"></script>
+
+    <h1>Choose Option for Signing In to N-Glot</h1>
+    <div id="ErrorMessage">
+      <div id="ErrorBox">
+        <div id="UnknownError" style="display: none;">
+          <h2>Unknown Error</h2>
+          <p>An Unknown Error has Occured, Please Try Again</p>
+        </div>
+      </div>
+    </div>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+
+    <!--<script type="module">
+      import { DBHandler } from "./db_handler.js";
+      window.db_handler = new DBHandler();
+    </script>-->
+  </body>
+</html>

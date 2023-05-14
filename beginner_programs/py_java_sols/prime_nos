@@ -1,0 +1,1 @@
+public class prime_nos{static int start;static int end;public static void main(String[]args){start=11;end=25;for(int i=start;i<end+1;i++){if(i>1){boolean break_bool=false;for(int j=2;j<i;j++){if((i%j==0)){break_bool=true;break;}}if(!break_bool){System.out.println(i);}}}}}

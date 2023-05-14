@@ -1,0 +1,1 @@
+import java.util.Arrays;public class t5{public static void main(String[]args){int[] a={2,4,5};System.out.println(Arrays.toString(a));double[] b=list_ret();System.out.println(Arrays.toString(b));}static double[] list_ret(){return new double[] {0x1,3.14,0b100,5,010,2_2};}}

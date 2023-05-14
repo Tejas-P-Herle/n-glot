@@ -1,0 +1,1 @@
+public class sum_sq{static int n;public static void main(String[]args){n=4;System.out.println(squaresum(n));}static int squaresum(int n){int sm=0;for(int i=1;i<n+1;i++){sm=sm+(i*i);}return sm;}}
